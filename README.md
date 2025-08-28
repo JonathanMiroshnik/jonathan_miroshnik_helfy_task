@@ -18,3 +18,12 @@ markdown
 - PUT /api/tasks/:id
 - DELETE /api/tasks/:id
 - PATCH /api/tasks/:id/toggle
+
+## Design Decision Assumptions
+- Using Vite for the frontend
+
+## Time spent on each part
+Backend API - 
+Frontend - 
+Styling - 
+Testing - 
