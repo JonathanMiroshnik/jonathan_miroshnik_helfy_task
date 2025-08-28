@@ -11,7 +11,14 @@ interface Task {
     priority: 'low' | 'medium' | 'high' 
 }
 
-let tasks: Task[] = []
+let tasks: Task[] = [{
+    id: 1, 
+    title: "hello", 
+    description: "example desc", 
+    completed: false, 
+    createdAt: new Date("2/23/2024, 2:02:29 PM"), 
+    priority: 'low'
+}]
 
 router.get('/', getAllTasks);
 router.post('/', createNewTask);
@@ -31,19 +38,27 @@ function createNewTask(req: Request, res: Response) {
 }
 
 function updateTask(req: Request, res: Response) {
-    // const taskIndex = tasks.findIndex(t => t.id === parseInt(id));
-    // if (taskIndex === -1) {
-    //     return res.status(404).json({ message: 'Task not found' });
-    // }
+    const { id } = req.params;
 
-    // tasks[taskIndex] = { ...tasks[taskIndex], ...req.body };
+    const taskIndex = tasks.findIndex(t => t.id === parseInt(id));
+    if (taskIndex === -1) {
+        return res.status(404).json({ message: 'Task not found' });
+    }
 
-    // res.json(tasks[taskIndex]);
+    tasks[taskIndex] = { ...tasks[taskIndex], ...req.body };
+
+    res.json(tasks[taskIndex]);
 }
 
 function deleteTask(req: Request, res: Response) {
-    const taskToDelete = req.body;
-    tasks = tasks.filter(t => t.id !== taskToDelete.id)
+    const { id } = req.params;
+
+    const taskIndex = tasks.findIndex(t => t.id === parseInt(id));
+    if (taskIndex === -1) {
+        return res.status(404).json({ message: 'Task not found' });
+    }
+
+    tasks.splice(taskIndex, 1)
 
     res.json({ message: 'Deleted task' })
 }
