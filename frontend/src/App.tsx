@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
-import { createTask, getAllTasks, type Task } from './services/api';
+import { getAllTasks, type Task } from './services/api';
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [currentId, setCurrentId] = useState<number>(0);
+  const [currentId, setCurrentId] = useState<number>(2);
   const [showTaskForm, setShowTaskForm] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState<Task|null>(null);
 
@@ -17,12 +15,26 @@ function App() {
   },[]);
 
   async function updateTasks() {
+    console.log("updating");
     const currentTasks = await getAllTasks();
-    setTasks(currentTasks);
+    setTasks([...currentTasks]);
+    console.log("Tasks updated");
+  }
+
+  function formAction(createdNewTask: boolean) {
+    updateTasks();
+    setShowTaskForm(false);
+    setCurrentTask(null);
+    
+    if (createdNewTask) {
+      setCurrentId(id => id + 1);
+    }    
   }
 
   function startForm(task?: Task) {
-    if (task) {
+    console.log("form status", task);
+
+    if (task !== undefined) {
       setCurrentTask(task);
     }
     else {
@@ -31,36 +43,25 @@ function App() {
 
     setShowTaskForm(true);
 
-    // TODO: need this?
     return null;
   }
 
-  // {
-  //   id: 2, 
-  //   title: "hello2", 
-  //   description: "example desc2", 
-  //   completed: false, 
-  //   createdAt: new Date("2/23/2024, 2:02:29 PM"), 
-  //   priority: 'medium'
-  // }
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        { showTaskForm ? <TaskForm task={currentTask} currentId={currentId}/>: null }
-        <TaskList tasks={tasks} onUpdate={startForm} />
-        <button onClick={() => startForm()}>
-          Create Task
-        </button>
+      <h1>Task Management application</h1>
+      <h2>By Jonathan Miroshnik</h2>
+      { showTaskForm ? 
+      <TaskForm task={currentTask} nextId={currentId} onCreate={() => formAction(true)} onUpdate={() => formAction(false)} /> : 
+      null }
+      <div className='main-div'>
+        <div className='create-button-div'>
+          <button onClick={() => startForm()}>
+            Create Task
+          </button>
+        </div>
+        <div className='main-carousel-div'>
+          <TaskList key={"tasks_list_"+tasks.length} tasks={tasks} onUpdate={startForm} />
+        </div>
       </div>
     </>
   )

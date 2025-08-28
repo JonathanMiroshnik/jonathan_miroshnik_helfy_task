@@ -1,0 +1,103 @@
+.task-item-main {
+    border: 2px solid lightcyan;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+    background: #f9f9f9;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.1), -3px -3px 5px rgba(255,255,255,0.8);
+}
+
+.task-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+    background: #f9f9f9;
+}
+
+.task-content {
+    line-height: 1.6;
+}
+
+.task-id {
+    color: gray;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.task-title {
+    margin: 0 0 8px 0;
+    color: darkgray;
+    font-size: 1.2em;
+}
+
+.task-description {
+    margin: 8px 0;
+    color: lightgray;
+}
+
+.task-status, .task-created, .task-priority {
+    margin: 4px 0;
+    color: gray;
+}
+
+.task-actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-update, .btn-delete {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-update {
+    background: lightgreen;
+    color: white;
+}
+
+.btn-update:hover {
+    background: green;
+}
+
+.btn-delete {
+    background: orange;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: darkorange;
+}
+
+.priority-div-high {
+    background-color: red
+}
+
+.priority-div-medium {
+    background-color: orange
+}
+
+.priority-div-low {
+    background-color: lightgoldenrodyellow;    
+}
+
+@media (min-width: 600px) {
+    .task-item-main {
+        width: auto;
+        align-self: flex-start;
+    }
+
+    .btn-update {
+        width: auto;
+        align-self: flex-start;
+    }
+    .btn-delete {
+        width: auto;
+        align-self: flex-start;
+    }
+}

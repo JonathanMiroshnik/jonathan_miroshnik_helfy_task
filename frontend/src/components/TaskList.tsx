@@ -9,11 +9,11 @@ interface TaskListProps {
 // Display all tasks in an endless carousel
 function TaskList(props: TaskListProps) {
     return (
-        <div>
+        <>
             { props.tasks ?
-            props.tasks.map(t => (<TaskItem key={"task_item_" + t.id} task={t} onUpdate={props.onUpdate} />)) 
+            props.tasks.map(t => (<div key={"task_item_" + t.id}><TaskItem task={t} onUpdate={props.onUpdate} /></div>)) 
             : null }
-        </div>
+        </>
     );
 }
 

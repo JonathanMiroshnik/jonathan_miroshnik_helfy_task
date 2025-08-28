@@ -1,0 +1,51 @@
+.task-form-container {
+    padding: 16px;
+}
+
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-input, .form-textarea, .form-select {
+    padding: 8px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
+.form-textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.form-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-submit-btn {
+    padding: 10px 16px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-submit-btn:hover {
+    background: lightgreen;
+}
+
+@media (min-width: 600px) {
+    .task-form {
+        width: auto;
+        align-self: flex-start;
+    }
+    
+    .form-submit-btn {
+        width: auto;
+        align-self: flex-start;
+    }
+}

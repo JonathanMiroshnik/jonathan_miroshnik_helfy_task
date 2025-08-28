@@ -4,15 +4,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const taskRoutes_1 = __importDefault(require("./routes/taskRoutes"));
 const app = (0, express_1.default)();
 const port = 4000;
 // Middleware
+// TODO: add this to middleware file
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-// Route
+// Routes
+app.use('/api/tasks', taskRoutes_1.default);
 app.get('/', (req, res) => {
-    res.send('Hello TypeScript + Node.js!');
+    res.send('Server is running!');
 });
-// Start server
+// Server initialisation
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    return console.log(`Express is listening at http://localhost:${port}`);
 });
