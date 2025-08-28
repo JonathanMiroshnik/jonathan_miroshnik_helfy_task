@@ -26,12 +26,27 @@ router.put('/:id', updateTask);
 router.delete('/:id', deleteTask);
 router.patch('/:id/toggle', toggleTaskCompletionStatus);
 
+// TODO: check input validity  
+function checkTaskValidity(input: any) {
+    return true
+}
+
 function getAllTasks(req: Request, res: Response) {
     res.json(tasks)
 }
 
 function createNewTask(req: Request, res: Response) {
     const newTask = req.body;
+
+    if (!checkTaskValidity(newTask)) {
+        return res.status(400).json({ message: 'Invalid Input' });
+    }
+
+    const taskIndex = tasks.findIndex(t => t.id === parseInt(newTask.id));
+    if (taskIndex !== -1) {
+        return res.status(404).json({ message: 'Task already exists' });
+    }
+
     tasks = [newTask, ...tasks]
 
     res.json({ message: 'Created new Task' })
@@ -39,13 +54,18 @@ function createNewTask(req: Request, res: Response) {
 
 function updateTask(req: Request, res: Response) {
     const { id } = req.params;
+    const updatedTask = req.body;
+
+    if (!checkTaskValidity(updatedTask)) {
+        return res.status(400).json({ message: 'Invalid Input' });
+    }
 
     const taskIndex = tasks.findIndex(t => t.id === parseInt(id));
     if (taskIndex === -1) {
         return res.status(404).json({ message: 'Task not found' });
     }
 
-    tasks[taskIndex] = { ...tasks[taskIndex], ...req.body };
+    tasks[taskIndex] = { ...tasks[taskIndex], ...updatedTask};
 
     res.json(tasks[taskIndex]);
 }

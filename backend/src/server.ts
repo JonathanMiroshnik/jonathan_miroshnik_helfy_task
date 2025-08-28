@@ -10,8 +10,6 @@ const port = 4000;
 app.use(cors());
 app.use(express.json());
 
-// TODO: basic input validation middleware
-
 // Routes
 app.use('/api/tasks', taskRoutes);
 
